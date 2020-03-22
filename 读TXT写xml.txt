@@ -1,0 +1,29 @@
+static void Main(string[] args)
+        {
+            StreamReader input = new StreamReader("./student.txt");
+            XmlDocument doc = new XmlDocument();
+            XmlDeclaration dec = doc.CreateXmlDeclaration("1.0", "utf-8", "yes");
+            doc.AppendChild(dec);
+            XmlElement grades = doc.CreateElement("grades");
+            doc.AppendChild(grades);
+            string line;
+            while ((line = input.ReadLine()) != null)
+            {
+                string[] lines = line.Split('\t');
+                XmlElement grade = doc.CreateElement("grade");
+                XmlElement id = doc.CreateElement("id");
+                id.InnerText = lines[0];
+                XmlElement name = doc.CreateElement("name");
+                name.InnerText = lines[1];
+                XmlElement course = doc.CreateElement("course");
+                course.InnerText = lines[2];
+                XmlElement score = doc.CreateElement("score");
+                score.InnerText = lines[3];
+                grade.AppendChild(id);
+                grade.AppendChild(name);
+                grade.AppendChild(course);
+                grade.AppendChild(score);
+                doc.DocumentElement.AppendChild(grade);
+            }
+            doc.Save("./FromTxtToXml.xml");
+        }

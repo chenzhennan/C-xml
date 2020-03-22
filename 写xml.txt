@@ -1,0 +1,31 @@
+static void Main(string[] args)
+        {
+            XmlDocument doc = new XmlDocument();
+            if (File.Exists("./student.xml"))
+            {
+                doc.Load("./student.xml");
+            }
+            else
+            {
+                XmlDeclaration dec = doc.CreateXmlDeclaration("1.0", "utf-8", "yes");
+                doc.AppendChild(dec);
+                XmlElement grades = doc.CreateElement("grades");
+                doc.AppendChild(grades);
+            }
+            XmlElement grade = doc.CreateElement("grade");
+            
+            XmlElement id = doc.CreateElement("id");
+            id.InnerText = "20160001";
+            XmlElement name = doc.CreateElement("name");
+            name.InnerText = "张三";
+            XmlElement course = doc.CreateElement("course");
+            course.InnerText = "操作系统";
+            XmlElement score = doc.CreateElement("score");
+            score.InnerText = "70";
+            grade.AppendChild(id);
+            grade.AppendChild(name);
+            grade.AppendChild(course);
+            grade.AppendChild(score);
+            doc.DocumentElement.AppendChild(grade);
+            doc.Save("./student.xml");
+        }
